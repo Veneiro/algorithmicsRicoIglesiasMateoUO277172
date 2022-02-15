@@ -1,4 +1,4 @@
-package session0;
+package algstudent.session0;
 
 public class Math {
 	public int sum(int a, int b) {
