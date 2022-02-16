@@ -6,5 +6,5 @@ Repository for the Algorithmics course at the School of Computer Engineering of 
 
 **Year**: 2022
 
-**Repository URL**: https://github.com/Veneiro/algorithmicsIglesiasRicoMateoUO277172.git
+**Repository URL**: https://github.com/Veneiro/algorithmicsIglesiasRicoMateoUO277172
 
