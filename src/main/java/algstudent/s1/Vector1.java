@@ -9,7 +9,7 @@ Java classes are stored in files with the same as the class,
 Packages must be in a directory path with the same name, that is,
 package alg77777777.s1 should be in the directory alg77777777/s1.
 */
-package s1;
+package algstudent.s1;
 
 import java.util.Random; //It is the class that generates random numbers
 

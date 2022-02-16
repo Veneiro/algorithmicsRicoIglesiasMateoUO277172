@@ -1,4 +1,4 @@
-package s0;
+package algstudent.s0;
 
 public class Main {
     

@@ -7,12 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MathTest {
-	private static Math math;
+	private static Math1 math;
 	private static Logger log = LoggerFactory.getLogger(MathTest.class);
 	   
     @BeforeClass
     public static void initialize() {
-        math = new Math();
+        math = new Math1();
         log.info("Testing student project");
     }
 
