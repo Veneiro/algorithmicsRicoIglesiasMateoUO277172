@@ -2,23 +2,39 @@ package algstudent.s1;
 
 public class Vector4 {
 
-	static int[] v;
+	public static void main(String arg[]) {
+		int times = Integer.parseInt(arg[0]);
+		long timeBeforeSum, timeAfterSum;
+		long timeBeforeFill, timeAfterFill;
+		long timeBeforeMax, timeAfterMax;
+		int totalSum = 0;
+		int[] v;
 
-	public static void main(String[] args) {
-		int repetitions = Integer.parseInt(args[0]);
-		long t1, t2;
-		for (int n = 10; n < Integer.MAX_VALUE; n *= 5) {
-			v = new int[n];
-			Vector1.fillIn(v);
-			int sum = 0;
-			t1 = System.currentTimeMillis();
-			for (int rep = 1; rep < repetitions; rep++) {
-				sum = Vector1.sum(v);
+		for (int i = 10; i < Integer.MAX_VALUE; i *= 3) {
+			v = new int[i];
+			timeBeforeFill = System.currentTimeMillis();
+			for (int j = 0; j < times; j++) {
+				Vector1.fillIn(v);
 			}
-			t2 = System.currentTimeMillis();
-			System.out.printf("SIZE=%d TIME %d microseconds SUM=%d REPETITIONS=%d\n", n,
-					t2 - t1, sum, repetitions);
+			timeAfterFill = System.currentTimeMillis();
+			timeBeforeSum = System.currentTimeMillis();
+			for (int j = 1; j < times; j++) {
+				totalSum = Vector1.sum(v);
+			}
+			timeAfterSum = System.currentTimeMillis();
+			int m[] = new int[2];
+			timeBeforeMax = System.currentTimeMillis();
+			for (int j = 1; j < times; j++) {
+				Vector1.maximum(v, m);
+			}
+			timeAfterMax = System.currentTimeMillis();
+
+			long timeSum = timeAfterSum - timeBeforeSum;
+			long timeFilling = timeAfterFill - timeBeforeFill;
+			long timeMax = timeAfterMax - timeBeforeMax;
+
+			System.out.println("Size: " + i + "\t | fillIn(t): " + timeFilling + "ms \t| sum(t): " + timeSum
+					+ "ms \t| maximum(t): " + timeMax + "ms \t| Total Sum: " + totalSum);
 		}
 	}
-
 }
