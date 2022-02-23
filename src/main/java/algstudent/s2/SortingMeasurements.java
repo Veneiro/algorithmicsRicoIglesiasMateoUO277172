@@ -1,9 +1,9 @@
 package algstudent.s2;
 
 public class SortingMeasurements {
-	private static int differentSizes = 3; //how many sizes do you want to use in the measurements 
+	private static int differentSizes = 100; //how many sizes do you want to use in the measurements 
 	private static int repetitions = 1; //number of repetitions of the executions
-	private static String option = "sorted"; //working with sorted/inversely sorted/random vectors
+	private static String option = "inverse"; //working with sorted/inversely sorted/random vectors
 
 	/** This program could be used to test all the sorting algorithms
 	 * */
@@ -17,17 +17,17 @@ public class SortingMeasurements {
 		int n = it[0];
 		System.out.println("Different sizes = " + i);
 		
-		measureTimes(new Insertion(n), it);
-		
-		measureTimes(new Selection(n), it);
-		
+//		measureTimes(new Insertion(n), it);
+//		
+//		measureTimes(new Selection(n), it);
+//		
 		measureTimes(new Bubble(n), it);
-		
-		measureTimes(new QuicksortFateful(n), it);
-		
-		measureTimes(new QuicksortCentralElement(n), it);
-		
-		measureTimes(new QuicksortMedianOfThree(n), it);
+//		
+//		measureTimes(new QuicksortFateful(n), it);
+//		
+//		measureTimes(new QuicksortCentralElement(n), it);
+//		
+//		measureTimes(new QuicksortMedianOfThree(n), it);
 	}
 	
 	public static void measureTimes(Vector v, int[] iterations) {
@@ -42,6 +42,8 @@ public class SortingMeasurements {
 					v.directlySorted();
 				else if (option.compareTo("inverse")==0)
 					v.inverselySorted();
+				else if(option.compareTo("random")==0)
+					v.randomlySorted();
 				t1 = System.currentTimeMillis();
 				v.sort();
 				t2 = System.currentTimeMillis();
