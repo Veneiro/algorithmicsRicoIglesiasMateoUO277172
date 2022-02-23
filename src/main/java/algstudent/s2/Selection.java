@@ -7,14 +7,24 @@ public class Selection extends Vector {
 	public Selection(int nElements) {
 		super(nElements);
 	}
-	
+
 	@Override
 	public void sort() {
-		// TODO: Implement this algorithm
-	}  
-	
+		for (int i = 0; i < elements.length - 1; i++) {
+			int index = i;
+			for (int j = i + 1; j < elements.length; j++) {
+				if (elements[j] < elements[index]) {
+					index = j;// searching for lowest index
+				}
+			}
+			int smallerNumber = elements[index];
+			elements[index] = elements[i];
+			elements[i] = smallerNumber;
+		}
+	}
+
 	@Override
 	public String getName() {
 		return "Selection";
-	} 
-} 
+	}
+}

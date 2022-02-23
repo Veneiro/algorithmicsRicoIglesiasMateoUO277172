@@ -5,19 +5,19 @@ public class SortingTests {
 	/** This program is used to check that sorting algorithms are working
 	 * */
 	public static void main(String arg []) {
-//		int n = Integer.parseInt(arg[0]);  //problem size
-		int n = 20;  //problem size
-//		testSortingAlgorithm(new Insertion(n));
-//		
-//		testSortingAlgorithm(new Selection(n));
-//		
-//		testSortingAlgorithm(new Bubble(n));
-//		
-//		testSortingAlgorithm(new QuicksortFateful(n));
-//		
-//		testSortingAlgorithm(new QuicksortCentralElement(n));
-//		
-//		testSortingAlgorithm(new QuicksortMedianOfThree(n));
+		int n = Integer.parseInt(arg[0]);  //problem size
+//		int n = 20;  //problem size
+		testSortingAlgorithm(new Insertion(n));
+		
+		testSortingAlgorithm(new Selection(n));
+		
+		testSortingAlgorithm(new Bubble(n));
+		
+		testSortingAlgorithm(new QuicksortFateful(n));
+		
+		testSortingAlgorithm(new QuicksortCentralElement(n));
+		
+		testSortingAlgorithm(new QuicksortMedianOfThree(n));
 	}
 	
 	public static void testSortingAlgorithm(Vector v) {
