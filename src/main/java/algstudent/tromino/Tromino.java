@@ -13,14 +13,15 @@ public class Tromino {
 	private int x;
 	private int y;
 	private int[][] board;
+	private int trominoCounter = 1;
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Tromino t = new Tromino(4, 1, 1);
+		Tromino t = new Tromino(8, 0, 0);
 		t.setBoard(new int[t.getSize()][t.getSize()]);
-		t.doTromino(t.getSize(), t.getX(), t.getY());
+		t.doTromino(t.getSize(), 0, 0, t.getX(), t.getY());
 		t.print();
 	}
 
@@ -38,108 +39,92 @@ public class Tromino {
 		this.y = y;
 	}
 
-	void doTromino(int s, int x, int y) {
+	void doTromino(int s, int sX, int sY, int x, int y) {
 		if (s == 2) { // Base case
 			board[this.x][this.y] = -1;
-			
-			if (x < board.length / 2) {
-				if (y < board[0].length / 2) { //First Quadrant
-					for (int i = 0; i < board.length / 2; i++) {
-						for (int j = 0; j < board.length / 2; j++) {
-							if(board[i][j] != board[x][y]) {
-								board[i][j] = 2;
-							}
-						}
-					}
-				} else if (y >= board[0].length / 2) { //Third Quadrant
-					for (int i = board.length / 2; i < board.length; i++) {
-						for (int j = 0; j < board.length / 2; j++) {
-							if(board[i][j] != board[x][y]) {
-								board[i][j] = 3;
-							}
-						}
-					}
-				}
-			} else if (x >= board.length / 2) {
-				if (y < board[0].length / 2) { //Second Quadrant
-					for (int i = 0; i < board.length / 2; i++) {
-						for (int j = board.length / 2; j < board.length; j++) {
-							if(board[i][j] != board[x][y]) {
-								board[i][j] = 4;
-							}
-						}
-					}
-				} else if (y >= board[0].length / 2) { //Fourth Quadrant
-					for (int i = board.length / 2; i < board.length; i++) {
-						for (int j = board.length / 2; j < board.length; j++) {
-							if(board[i][j] != board[x][y]) {
-								board[i][j] = 5;
-							}
-						}
+
+			for (int i = sX; i < sX + s; i++) {
+				for (int j = sY; j < sY + s; j++) {
+					if (i != x || j != y) {
+						board[i][j] = trominoCounter;
 					}
 				}
 			}
-//			if (!(x + 1 > (board.length / 2) - 1
-//					|| (y + 1 > (board.length / 2) - 1))) {
-//				board[x + 1][y + 1] = 1;
-//				board[x + 1][y] = 1;
-//				board[x][y + 1] = 1;
-//			}
-//			if (!(x + 1 > (board.length / 2) - 1
-//					|| (y + 1 > (board.length / 2) - 1))) {
-//				board[x - 1][y + 1] = 1;
-//				board[x - 1][y] = 1;
-//				board[x][y + 1] = 1;
-//			}
-//			if (!(x + 1 > (board.length / 2) - 1
-//					|| (y + 1 > (board.length / 2) - 1))) {
-//				board[x + 1][y - 1] = 1;
-//				board[x + 1][y] = 1;
-//				board[x][y - 1] = 1;
-//			}
-//			if (!(x + 1 > (board.length / 2) - 1
-//					|| (y + 1 > (board.length / 2) - 1))) {
-//				board[x - 1][y - 1] = 1;
-//				board[x - 1][y] = 1;
-//				board[x][y - 1] = 1;
-//			}
+			trominoCounter++;
+
 		} else {
-			if (x < board.length / 2) {
-				if (y < board[0].length / 2) {
-					board[board[0].length / 2][1] = 1;
-					board[board[0].length / 2][board[0].length / 2] = 1;
-					board[1][board[0].length / 2] = 1;
-					doTromino(s / 2, this.x, this.y);
-					doTromino(s / 2, 1, board.length / 2);
-					doTromino(s / 2,board.length / 2, 1);
-					doTromino(s / 2, board.length / 2, board.length / 2);
-				} else if (y >= board[0].length / 2) {
-					board[(board[0].length / 2) - 1][1] = 1;
-					board[board[0].length / 2][board[0].length / 2] = 1;
-					board[1][board[0].length / 2] = 1;
-					doTromino(s / 2, this.x, this.y);
-					doTromino(s / 2, 1, board.length / 2);
-					doTromino(s / 2,board.length / 2, 1);
-					doTromino(s / 2, board.length / 2, board.length / 2);
-				}
-			} else if (x >= board.length / 2) {
-				if (y < board[0].length / 2) {
-					board[board[0].length / 2][1] = 1;
-					board[board[0].length / 2][board[0].length / 2] = 1;
-					board[1][(board[0].length / 2) - 1] = 1;
-					doTromino(s / 2, this.x, this.y);
-					doTromino(s / 2, 1, board.length / 2);
-					doTromino(s / 2,board.length / 2, 1);
-					doTromino(s / 2, board.length / 2, board.length / 2);
-				} else if (y >= board[0].length / 2) {
-					board[(board[0].length / 2) - 1][1] = 1;
-					board[board[0].length / 2][(board[0].length / 2) - 1] = 1;
-					board[1][board[0].length / 2] = 1;
-					doTromino(s / 2, this.x, this.y);
-					doTromino(s / 2, 1, board.length / 2);
-					doTromino(s / 2,board.length / 2, 1);
-					doTromino(s / 2, board.length / 2, board.length / 2);
-				}
+			if (x < s / 2) {
+				if (y < s / 2) { // First Quadrant
+					board[s / 2][(s / 2) - 1] = trominoCounter;
+					board[s / 2][s / 2] = trominoCounter;
+					board[(s / 2) - 1][s / 2] = trominoCounter;
+					trominoCounter++;
+					doTromino(s / 2, 0,
+							(s / 2) - 2, this.x, this.y);
+					doTromino(s / 2, (s / 2) - 2,
+							s / 2, (s / 2) - 1,
+							s / 2);
+					doTromino(s / 2, s / 2,
+							(s / 2) - 2, s / 2,
+							(s / 2) - 1);
+					doTromino(s / 2, s / 2, s / 2,
+							s / 2, s / 2);
+				} 
+//				else if (y >= s / 2) { // Third Quadrant
+//					board[s / 2][(s / 2) - 1] = trominoCounter;
+//					board[(s / 2) - 1][(s / 2)
+//							- 1] = trominoCounter;
+//					board[s / 2][s / 2] = trominoCounter;
+//					trominoCounter++;
+//					doTromino(s / 2, x - 1,
+//							y - 1, x, y);
+//					doTromino(s / 2, (s / 2) - 2,
+//							(s / 2) - 2,
+//							(s / 2) - 1,
+//							(s / 2) - 1);
+//					doTromino(s / 2, s / 2,
+//							(s / 2) - 2, s / 2,
+//							(s / 2) - 1);
+//					doTromino(s / 2, s / 2, s / 2,
+//							s / 2, s / 2);
+//				}
+//			} else if (x >= s / 2) { // Second Quadrant
+//				if (y < s / 2) {
+//					board[(s / 2) - 1][s / 2] = trominoCounter;
+//					board[s / 2][s / 2] = trominoCounter;
+//					board[(s / 2) - 1][(s / 2)
+//							- 1] = trominoCounter;
+//					trominoCounter++;
+//					doTromino(s / 2, s / 2,
+//							(s / 2) - 2, this.x, this.y);
+//					doTromino(s / 2, (s / 2) - 2,
+//							s / 2, (s / 2) - 1,
+//							s / 2);
+//					doTromino(s / 2, (s / 2) - 2,
+//							(s / 2) - 2,
+//							(s / 2) - 1,
+//							(s / 2) - 1);
+//					doTromino(s / 2, s / 2, s / 2,
+//							s / 2, s / 2);
+//				} else if (y >= s / 2) { // Fourth Quadrant
+//					board[(s / 2) - 1][(s / 2)
+//							- 1] = trominoCounter;
+//					board[s / 2][(s / 2) - 1] = trominoCounter;
+//					board[(s / 2) - 1][s / 2] = trominoCounter;
+//					trominoCounter++;
+//					doTromino(s / 2, s / 2, s / 2, this.x,
+//							this.y);
+//					doTromino(s / 2, (s / 2) - 2,
+//							s / 2, (s / 2) - 1,
+//							s / 2);
+//					doTromino(s / 2, s / 2,
+//							(s / 2) - 2, s / 2,
+//							(s / 2) - 1);
+//					doTromino(s / 2, (s / 2) - 2,
+//							(s / 2) - 2,
+//							(s / 2) - 1,
+//							(s / 2) - 1);
+//				}
 			}
 		}
 	}
