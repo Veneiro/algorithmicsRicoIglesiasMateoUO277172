@@ -14,6 +14,7 @@ public class Tromino {
 	private int y;
 	private int[][] board;
 	private int trominoCounter = 1;
+	private int starterSize;
 
 	/**
 	 * @param args
@@ -35,6 +36,7 @@ public class Tromino {
 	 */
 	Tromino(int size, int x, int y) {
 		this.size = size;
+		this.starterSize = size;
 		this.x = x;
 		this.y = y;
 	}
@@ -59,72 +61,45 @@ public class Tromino {
 					board[s / 2][s / 2] = trominoCounter;
 					board[(s / 2) - 1][s / 2] = trominoCounter;
 					trominoCounter++;
-					doTromino(s / 2, 0,
-							(s / 2) - 2, this.x, this.y);
-					doTromino(s / 2, (s / 2) - 2,
-							s / 2, (s / 2) - 1,
+					doTromino(s / 2, s - s, s - s, this.x, this.y); // First
+																	// Quadrant
+					doTromino(s / 2, s - s, s / 2, (s / 2) - 1, // Second
+																// Quadrant
 							s / 2);
-					doTromino(s / 2, s / 2,
-							(s / 2) - 2, s / 2,
+					doTromino(s / 2, s / 2, s - s, s / 2, // Third Quadrant
 							(s / 2) - 1);
-					doTromino(s / 2, s / 2, s / 2,
+					doTromino(s / 2, s / 2, s / 2, // Fourth Quadrant
 							s / 2, s / 2);
-				} 
-//				else if (y >= s / 2) { // Third Quadrant
-//					board[s / 2][(s / 2) - 1] = trominoCounter;
-//					board[(s / 2) - 1][(s / 2)
-//							- 1] = trominoCounter;
-//					board[s / 2][s / 2] = trominoCounter;
-//					trominoCounter++;
-//					doTromino(s / 2, x - 1,
-//							y - 1, x, y);
-//					doTromino(s / 2, (s / 2) - 2,
-//							(s / 2) - 2,
-//							(s / 2) - 1,
-//							(s / 2) - 1);
-//					doTromino(s / 2, s / 2,
-//							(s / 2) - 2, s / 2,
-//							(s / 2) - 1);
-//					doTromino(s / 2, s / 2, s / 2,
-//							s / 2, s / 2);
-//				}
-//			} else if (x >= s / 2) { // Second Quadrant
-//				if (y < s / 2) {
-//					board[(s / 2) - 1][s / 2] = trominoCounter;
-//					board[s / 2][s / 2] = trominoCounter;
-//					board[(s / 2) - 1][(s / 2)
-//							- 1] = trominoCounter;
-//					trominoCounter++;
-//					doTromino(s / 2, s / 2,
-//							(s / 2) - 2, this.x, this.y);
-//					doTromino(s / 2, (s / 2) - 2,
-//							s / 2, (s / 2) - 1,
-//							s / 2);
-//					doTromino(s / 2, (s / 2) - 2,
-//							(s / 2) - 2,
-//							(s / 2) - 1,
-//							(s / 2) - 1);
-//					doTromino(s / 2, s / 2, s / 2,
-//							s / 2, s / 2);
-//				} else if (y >= s / 2) { // Fourth Quadrant
-//					board[(s / 2) - 1][(s / 2)
-//							- 1] = trominoCounter;
-//					board[s / 2][(s / 2) - 1] = trominoCounter;
-//					board[(s / 2) - 1][s / 2] = trominoCounter;
-//					trominoCounter++;
-//					doTromino(s / 2, s / 2, s / 2, this.x,
-//							this.y);
-//					doTromino(s / 2, (s / 2) - 2,
-//							s / 2, (s / 2) - 1,
-//							s / 2);
-//					doTromino(s / 2, s / 2,
-//							(s / 2) - 2, s / 2,
-//							(s / 2) - 1);
-//					doTromino(s / 2, (s / 2) - 2,
-//							(s / 2) - 2,
-//							(s / 2) - 1,
-//							(s / 2) - 1);
-//				}
+				} else if (y >= s / 2) { // Third Quadrant
+					board[s / 2][(s / 2) - 1] = trominoCounter;
+					board[(s / 2) - 1][(s / 2) - 1] = trominoCounter;
+					board[s / 2][s / 2] = trominoCounter;
+					trominoCounter++;
+					doTromino(s / 2, (s / 2), s - s, x, y);
+					doTromino(s / 2, s - s, s - s, (s / 2) - 1, (s / 2) - 1);
+					doTromino(s / 2, s / 2, s - s, s / 2, (s / 2) - 1);
+					doTromino(s / 2, s / 2, s / 2, s / 2, s / 2);
+				}
+			} else if (x >= s / 2) { // Second Quadrant
+				if (y < s / 2) {
+					board[(s / 2) - 1][s / 2] = trominoCounter;
+					board[s / 2][s / 2] = trominoCounter;
+					board[(s / 2) - 1][(s / 2) - 1] = trominoCounter;
+					trominoCounter++;
+					doTromino(s / 2, s / 2, (s / 2) - 2, this.x, this.y);
+					doTromino(s / 2, s - s, s / 2, (s / 2) - 1, s / 2);
+					doTromino(s / 2, s - s, s - s, (s / 2) - 1, (s / 2) - 1);
+					doTromino(s / 2, s / 2, s / 2, s / 2, s / 2);
+				} else if (y >= s / 2) { // Fourth Quadrant
+					board[(s / 2) - 1][(s / 2) - 1] = trominoCounter;
+					board[s / 2][(s / 2) - 1] = trominoCounter;
+					board[(s / 2) - 1][s / 2] = trominoCounter;
+					trominoCounter++;
+					doTromino(s / 2, s / 2, s / 2, this.x, this.y);
+					doTromino(s / 2, s - s, s / 2, (s / 2) - 1, s / 2);
+					doTromino(s / 2, s / 2, s - s, s / 2, (s / 2) - 1);
+					doTromino(s / 2, s - s, s - s, (s / 2) - 1, (s / 2) - 1);
+				}
 			}
 		}
 	}
