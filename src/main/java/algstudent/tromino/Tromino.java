@@ -23,11 +23,11 @@ public class Tromino {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		t = new Tromino(8, 0, 0);
-		t.setBoard(new int[128][128]);
+	public static void main(int[] args) {
+		t = new Tromino(args[0], args[1], args[2]);
+		t.setBoard(new int[t.getSize() + 1][t.getSize() + 1]);
 		t.doTromino(t.getSize(), t.getX(), t.getY());
-		t.print();
+		//t.print();
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class Tromino {
 	 * @param board the board to set
 	 */
 	public void setBoard(int[][] board) {
-		this.board = board;
+		Tromino.board = board;
 	}
 
 	/**
