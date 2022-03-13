@@ -231,3 +231,102 @@ if (x < board.length / 2) {
 					
 				}
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//					// First Quadrant
+//					doTromino(s / 2, s - s, s - s, this.x, this.y);
+//					
+//					// Second Quadrant
+//					doTromino(s / 2, s - s, s / 2, (s / 2) - 1, s / 2);
+//					
+//					// Third Quadrant
+//					doTromino(s / 2, s / 2, s - s, s / 2, (s / 2) - 1);
+//					
+//					// Fourth Quadrant
+//					doTromino(s / 2, s / 2, s / 2, s / 2, s / 2);
+
+
+
+
+//					// Second Quadrant
+//					doTromino(s / 2, s - s, s / 2, this.x, this.y);
+//					
+//					// First Quadrant
+//					doTromino(s / 2, s - s, s - s, (s / 2) - 1, (s / 2) - 1);
+//					
+//					// Third Quadrant
+//					doTromino(s / 2, s / 2, s - s, s / 2, (s / 2) - 1);
+//					
+//					// Fourth Quadrant
+//					doTromino(s / 2, s / 2, s / 2, s / 2, s / 2);
+
+
+
+//					// Third Quadrant
+//					doTromino(s / 2, s / 2, s - s, this.x, this.y);
+//					
+//					// Second Quadrant
+//					doTromino(s / 2, s - s, s / 2, (s / 2) - 1, s / 2);
+//					
+//					// First Quadrant
+//					doTromino(s / 2, s - s, s - s, (s / 2) - 1, (s / 2) - 1);
+//					
+//					// Fourth Quadrant
+//					doTromino(s / 2, s / 2, s / 2, s / 2, s / 2);
+
+
+//					// Fourt Qudrant
+//					doTromino(s / 2, s / 2, s / 2, this.x, this.y);
+//					
+//					// Second Quandrant
+//					doTromino(s / 2, s - s, s / 2, (s / 2) - 1, s / 2);
+//					
+//					// Third Quadrant
+//					doTromino(s / 2, s / 2, s - s, s / 2, (s / 2) - 1);
+//					
+//					// First Quadrant
+//					doTromino(s / 2, s - s, s - s, (s / 2) - 1, (s / 2) - 1);
+
+
+
+//				board[s / 2][(s / 2) - 1] = trominoCounter;
+//				board[s / 2][s / 2] = trominoCounter;
+//				board[(s / 2) - 1][s / 2] = trominoCounter;
+
+//				board[s / 2][(s / 2) - 1] = trominoCounter;
+//				board[(s / 2) - 1][(s / 2) - 1] = trominoCounter;
+//				board[s / 2][s / 2] = trominoCounter;
+
+//				board[(s / 2) - 1][s / 2] = trominoCounter;
+//				board[s / 2][s / 2] = trominoCounter;
+//				board[(s / 2) - 1][(s / 2) - 1] = trominoCounter;
+
+//				board[(s / 2) - 1][(s / 2) - 1] = trominoCounter;
+//				board[s / 2][(s / 2) - 1] = trominoCounter;
+//				board[(s / 2) - 1][s / 2] = trominoCounter;
+
+
+
+
+

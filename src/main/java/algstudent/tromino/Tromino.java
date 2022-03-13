@@ -12,17 +12,21 @@ public class Tromino {
 	private int size;
 	private int x;
 	private int y;
-	private int[][] board;
+	private static int[][] board;
 	private int trominoCounter = 1;
-	private int starterSize;
+
+	private int inix;
+	private int iniy;
+
+	static Tromino t;
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Tromino t = new Tromino(4, 3, 0);
-		t.setBoard(new int[t.getSize()][t.getSize()]);
-		t.doTromino(t.getSize(), 0, 0, t.getX(), t.getY());
+		t = new Tromino(8, 0, 0);
+		t.setBoard(new int[128][128]);
+		t.doTromino(t.getSize(), t.getX(), t.getY());
 		t.print();
 	}
 
@@ -36,122 +40,81 @@ public class Tromino {
 	 */
 	Tromino(int size, int x, int y) {
 		this.size = size;
-		this.starterSize = size;
 		this.x = x;
 		this.y = y;
+		this.inix = x;
+		this.iniy = y;
 	}
 
-	void doTromino(int s, int sX, int sY, int x, int y) {
-		if (s == 2) { // Base case
-			board[this.x][this.y] = 0;
+	private void place(int x1, int y1, int x2, int y2, int x3, int y3) {
+		trominoCounter++;
+		board[x1][y1] = trominoCounter;
+		board[x2][y2] = trominoCounter;
+		board[x3][y3] = trominoCounter;
+	}
 
-			for (int i = sX; i < sX + s; i++) {
-				for (int j = sY; j < sY + s; j++) {
-					if (i != x || j != y) {
-						board[i][j] = trominoCounter;
+	void doTromino(int s, int x, int y) {
+		int r = 0, c = 0;
+		if (s == 2) { // Base case
+			trominoCounter++;
+			for (int i = 0; i < s; i++) {
+				for (int j = 0; j < s; j++) {
+					if (board[x + i][y + j] == 0) {
+						board[x + i][y + j] = trominoCounter;
 					}
 				}
 			}
-			trominoCounter++;
+			return;
+		}
+		for (int i = x; i < x + s; i++) {
+			for (int j = y; j < y + s; j++) {
+				if (board[i][j] != 0) {
+					r = i;
+					c = j;
+				}
 
-		} else {
-			int r = 0, c = 0;
-			for (int i = x; i < x + s; i++)
-		    {
-		      for (int j = y; j < y + s; j++)
-		      {
-		        if (board[i][j] != 0)
-		        {
-		          r = i;
-		          c = j;
-		        }
-		 
-		      }
-		    }
-			
-			if (x < s / 2) {
-				if (y < s / 2) { // First Quadrant
-					board[s / 2][(s / 2) - 1] = trominoCounter;
-					board[s / 2][s / 2] = trominoCounter;
-					board[(s / 2) - 1][s / 2] = trominoCounter;
-					trominoCounter++;
-					
-					// First Quadrant
-					doTromino(s / 2, s - s, s - s, this.x, this.y);
-					
-					// Second Quadrant
-					doTromino(s / 2, s - s, s / 2, (s / 2) - 1, s / 2);
-					
-					// Third Quadrant
-					doTromino(s / 2, s / 2, s - s, s / 2, (s / 2) - 1);
-					
-					// Fourth Quadrant
-					doTromino(s / 2, s / 2, s / 2, s / 2, s / 2);
-					
-				} else if (y >= s / 2) { // Second Quadrant
-					board[s / 2][(s / 2) - 1] = trominoCounter;
-					board[(s / 2) - 1][(s / 2) - 1] = trominoCounter;
-					board[s / 2][s / 2] = trominoCounter;
-					trominoCounter++;
-					
-					// Second Quadrant
-					doTromino(s / 2, s - s, s / 2, this.x, this.y);
-					
-					// First Quadrant
-					doTromino(s / 2, s - s, s - s, (s / 2) - 1, (s / 2) - 1);
-					
-					// Third Quadrant
-					doTromino(s / 2, s / 2, s - s, s / 2, (s / 2) - 1);
-					
-					// Fourth Quadrant
-					doTromino(s / 2, s / 2, s / 2, s / 2, s / 2);
-				}
-			} else if (x >= s / 2) { // Third Quadrant
-				if (y < s / 2) {
-					board[(s / 2) - 1][s / 2] = trominoCounter;
-					board[s / 2][s / 2] = trominoCounter;
-					board[(s / 2) - 1][(s / 2) - 1] = trominoCounter;
-					trominoCounter++;
-					
-					// Third Quadrant
-					doTromino(s / 2, s / 2, s - s, this.x, this.y);
-					
-					// Second Quadrant
-					doTromino(s / 2, s - s, s / 2, (s / 2) - 1, s / 2);
-					
-					// First Quadrant
-					doTromino(s / 2, s - s, s - s, (s / 2) - 1, (s / 2) - 1);
-					
-					// Fourth Quadrant
-					doTromino(s / 2, s / 2, s / 2, s / 2, s / 2);
-					
-				} else if (y >= s / 2) { // Fourth Quadrant
-					board[(s / 2) - 1][(s / 2) - 1] = trominoCounter;
-					board[s / 2][(s / 2) - 1] = trominoCounter;
-					board[(s / 2) - 1][s / 2] = trominoCounter;
-					trominoCounter++;
-					
-					// Fourt Qudrant
-					doTromino(s / 2, s / 2, s / 2, this.x, this.y);
-					
-					// Second Quandrant
-					doTromino(s / 2, s - s, s / 2, (s / 2) - 1, s / 2);
-					
-					// Third Quadrant
-					doTromino(s / 2, s / 2, s - s, s / 2, (s / 2) - 1);
-					
-					// First Quadrant
-					doTromino(s / 2, s - s, s - s, (s / 2) - 1, (s / 2) - 1);
-					
-				}
 			}
 		}
+
+		if (r < x + s / 2) { // Top Half
+			
+			// First Quadrant
+			if (c < y + s / 2) { 
+				place(x + s / 2, y + (s / 2) - 1, x + s / 2, y + s / 2,
+						x + s / 2 - 1, y + s / 2);
+			} 
+			
+			// Second Quadrant
+			else if (c >= y + s / 2) { 
+				place(x + s / 2, y + (s / 2) - 1, x + s / 2, y + s / 2,
+						x + s / 2 - 1, y + s / 2 - 1);
+			}
+		} else if (r >= x + s / 2) { // Bottom Half
+			
+			// Third Quadrant
+			if (c < y + s / 2) { 
+				place(x + (s / 2) - 1, y + (s / 2), x + (s / 2), y + s / 2,
+						x + (s / 2) - 1, y + (s / 2) - 1);
+				
+			// Fourth Quadrant
+			} else if (c >= y + s / 2) { 
+				place(x + (s / 2) - 1, y + (s / 2), x + (s / 2),
+						y + (s / 2) - 1, x + (s / 2) - 1, y + (s / 2) - 1);
+			}
+		}
+		
+		doTromino(s / 2, x, y + s / 2);
+		doTromino(s / 2, x, y);
+		doTromino(s / 2, x + s / 2, y);
+		doTromino(s / 2, x + s / 2, y + s / 2);
+		board[t.getInix()][t.getIniy()] = -1;
+		return;
 	}
 
 	void print() {
-		for (int i = 0; i < this.board.length; i++) {
-			for (int j = 0; j < board[0].length; j++) {
-				if (j == board[0].length - 1) {
+		for (int i = 0; i < t.getSize(); i++) {
+			for (int j = 0; j < t.getSize(); j++) {
+				if (j == t.getSize() - 1) {
 					System.out.println(board[i][j]);
 					System.out.println();
 					System.out.println();
@@ -216,6 +179,34 @@ public class Tromino {
 	 */
 	public void setBoard(int[][] board) {
 		this.board = board;
+	}
+
+	/**
+	 * @return the inix
+	 */
+	public int getInix() {
+		return inix;
+	}
+
+	/**
+	 * @param inix the inix to set
+	 */
+	public void setInix(int inix) {
+		this.inix = inix;
+	}
+
+	/**
+	 * @return the iniy
+	 */
+	public int getIniy() {
+		return iniy;
+	}
+
+	/**
+	 * @param iniy the iniy to set
+	 */
+	public void setIniy(int iniy) {
+		this.iniy = iniy;
 	}
 
 }
