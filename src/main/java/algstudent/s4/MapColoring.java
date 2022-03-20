@@ -3,7 +3,7 @@ package algstudent.s4;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Coloring {
+public class MapColoring {
 
 	static List<Node> nodes = new ArrayList<Node>();
 	static List<Colour> colours = new ArrayList<Colour>();
