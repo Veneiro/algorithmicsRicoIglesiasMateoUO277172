@@ -18,7 +18,7 @@ public class LevenshteinDistance {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		getSolution();
+		System.out.println("The solution is: " + getSolution());
 	}
 
 	public static void d() {
@@ -35,7 +35,6 @@ public class LevenshteinDistance {
 		}
 	}
 	/**
-	solution = table[table.length - 1][table[0].length - 1];
 	 * public static void d(int i, int j) {
 	 * 
 	 * //Stop condition if(i > table.length - 1 || j > table[0].length - 1) {
@@ -92,6 +91,7 @@ public class LevenshteinDistance {
 
 		d(); // Method call
 		showTable(); // Showing the table
+		solution = table[table.length - 1][table[0].length - 1];
 		return solution;
 	}
 
