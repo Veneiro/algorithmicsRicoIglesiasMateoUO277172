@@ -18,13 +18,13 @@ public class LevenshteinDistance {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(getSolution());
+		getSolution();
 	}
 
 	public static void d() {
 		for (int i = 1; i < table.length; i++) {
 			for (int j = 1; j < table[0].length; j++) {
-				if (A.charAt(i) == (B.charAt(j))) {
+				if (A.charAt(i - 1) == (B.charAt(j - 1))) {
 					table[i][j] = table[i - 1][j - 1];
 				} else {
 					table[i][j] = 1 + Math.min(
@@ -34,9 +34,8 @@ public class LevenshteinDistance {
 			}
 		}
 	}
-
-//	solution = table[table.length - 1][table[0].length - 1];
 	/**
+	solution = table[table.length - 1][table[0].length - 1];
 	 * public static void d(int i, int j) {
 	 * 
 	 * //Stop condition if(i > table.length - 1 || j > table[0].length - 1) {
@@ -51,9 +50,23 @@ public class LevenshteinDistance {
 	 */
 
 	public static void showTable() {
+		System.out.print("\t");
+		for (int i = 0; i < table[0].length; i++) { // Printing first word
+			if(i > 0) {
+				System.out.print("\t" + B.charAt(i - 1));
+			}
+		}
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
+		//Printing values of the table
 		for (int i = 0; i < table.length; i++) {
+			if(i > 0) { // Printing second word
+				System.out.print(A.charAt(i - 1));
+			}
 			for (int j = 0; j < table[0].length; j++) {
-				System.out.print(table[i][j] + "\t");
+				System.out.print("\t" + table[i][j]);
 			}
 			System.out.println();
 			System.out.println();
