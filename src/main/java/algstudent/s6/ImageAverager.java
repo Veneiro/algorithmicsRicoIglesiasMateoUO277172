@@ -22,6 +22,8 @@ public class ImageAverager {
 	// backtracking variables
 	private int counter; // to store the number of times we assign an image to
 							// half1, half2 or no group
+	private int counterHalf1;
+	private int counterHalf2;
 	private double max_zncc; // to store the best ZNCC
 
 	/**
@@ -185,7 +187,41 @@ public class ImageAverager {
 	 */
 	public void splitSubsetsBacktracking(int max_unbalancing) {
 		// TODO
+		backtrackingPruning(0, max_unbalancing);
+	}
 
+	private void backtrackingPruning(int level, int max_unbalancing) {
+		if (level == dataset.length - 1) {
+			double aux = zncc();
+			if (aux > max_zncc) {
+				this.max_zncc = aux;
+				this.avg_img = new Image(this.width, this.height);
+				avg_img.addSignal(half1_img);
+				avg_img.addSignal(half2_img);
+			}
+		} else {
+			// Don't use it
+			counter++;
+			backtracking(level + 1);
+
+			// Put in group 1 if there is no unbalancing
+			if (Math.abs(counterHalf2 - counterHalf1) <= max_unbalancing) {
+				counter++;
+				counterHalf1++;
+				half1_img.addSignal(dataset[level]);
+				backtracking(level + 1);
+				half1_img.removeSignal(dataset[level]);
+			}
+
+			// Put in group 2 if there is no unbalancing
+			if (Math.abs(counterHalf2 - counterHalf1) <= max_unbalancing) {
+				counter++;
+				counterHalf2++;
+				half2_img.addSignal(dataset[level]);
+				backtracking(level + 1);
+				half2_img.removeSignal(dataset[level]);
+			} 
+		}
 	}
 
 	/**
