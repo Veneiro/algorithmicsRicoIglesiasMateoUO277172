@@ -187,6 +187,7 @@ public class ImageAverager {
 	 */
 	public void splitSubsetsBacktracking(int max_unbalancing) {
 		// TODO
+		counter = 0;
 		backtrackingPruning(0, max_unbalancing);
 	}
 
@@ -205,7 +206,7 @@ public class ImageAverager {
 			backtracking(level + 1);
 
 			// Put in group 1 if there is no unbalancing
-			if (Math.abs(counterHalf2 - counterHalf1) <= max_unbalancing) {
+			if (Math.abs(counterHalf2 - counterHalf1) < max_unbalancing) {
 				counter++;
 				counterHalf1++;
 				half1_img.addSignal(dataset[level]);
@@ -214,7 +215,7 @@ public class ImageAverager {
 			}
 
 			// Put in group 2 if there is no unbalancing
-			if (Math.abs(counterHalf2 - counterHalf1) <= max_unbalancing) {
+			if (Math.abs(counterHalf2 - counterHalf1) < max_unbalancing) {
 				counter++;
 				counterHalf2++;
 				half2_img.addSignal(dataset[level]);
@@ -230,6 +231,7 @@ public class ImageAverager {
 	 */
 	public void splitSubsetsBacktracking() {
 		// TODO
+		counter = 0;
 		this.half1_img = new Image(this.width, this.height);
 		this.half2_img = new Image(this.width, this.height);
 		backtracking(0);
