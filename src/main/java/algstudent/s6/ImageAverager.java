@@ -24,7 +24,7 @@ public class ImageAverager {
 							// half1, half2 or no group
 	private int counterHalf1;
 	private int counterHalf2;
-	private double max_zncc; // to store the best ZNCC
+	private double max_zncc = Double.NEGATIVE_INFINITY; // to store the best ZNCC
 
 	/**
 	 * Constructor
@@ -188,6 +188,8 @@ public class ImageAverager {
 	public void splitSubsetsBacktracking(int max_unbalancing) {
 		// TODO
 		counter = 0;
+		this.half1_img = new Image(this.width, this.height);
+		this.half2_img = new Image(this.width, this.height);
 		backtrackingPruning(0, max_unbalancing);
 	}
 
