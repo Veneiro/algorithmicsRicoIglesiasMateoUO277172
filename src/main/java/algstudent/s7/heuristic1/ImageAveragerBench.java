@@ -149,8 +149,12 @@ public class ImageAveragerBench {
 	}
 
 	private void measureBackDef() {
-		System.out.print("TESTING BACKTRACKING WITHOUT BALANCING:\n");
-		img_avger.splitSubsetsBacktracking();
+		System.out.print("TESTING BRANCH AND BOUND:\n");
+		ImageAvg node = new ImageAvg();
+		ImageAveragerBAB_1 b = new ImageAveragerBAB_1(node);
+		b.branchAndBound(b.getRootNode());
+		b.printSolutionTrace();
+		//img_avger = ((ImageAvg)b.getBestNode()).getImageAverager();
 		System.out.printf("  -ZNCC: %f\n", img_avger.zncc());
 		System.out.printf("  -Counter: %d\n", img_avger.getCounter());
 		img_avger.saveResults(OUT_DIR_B);

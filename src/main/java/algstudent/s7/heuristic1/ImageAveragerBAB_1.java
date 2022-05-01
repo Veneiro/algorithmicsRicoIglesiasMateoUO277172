@@ -2,8 +2,6 @@ package algstudent.s7.heuristic1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import algstudent.s7.util.bab.BranchAndBound;
 import algstudent.s7.util.bab.Node;
@@ -17,6 +15,7 @@ public class ImageAveragerBAB_1 extends BranchAndBound {
 
 class ImageAvg extends Node {
 
+	private ImageAvg master;
 	private int actual;
 	private int asignaciones[];
 
@@ -33,27 +32,12 @@ class ImageAvg extends Node {
 	 * @param cjto
 	 */
 	public ImageAvg(ImageAvg padre, int cjto) {
+		this.master = padre;
 		this.actual = padre.actual + 1;
 		this.asignaciones = Arrays.copyOf(padre.asignaciones,
 				padre.asignaciones.length);
 		this.asignaciones[actual] = cjto;
-	}
-
-	/**
-	 * To generate a random array of positions
-	 * 
-	 * @param n Length of the array
-	 * @return
-	 */
-	public int[] randomIndexes(int n) {
-		List<Integer> list = new ArrayList<>();
-		for (int i = 0; i < n; i++)
-			list.add(i);
-		Collections.shuffle(list);
-		int[] array = new int[n];
-		for (int i = 0; i < n; i++)
-			array[i] = list.get(i);
-		return array;
+		calculateHeuristicValue();
 	}
 
 	/**
@@ -78,5 +62,9 @@ class ImageAvg extends Node {
 	public boolean isSolution() {
 		return (heuristicValue == 0) ? true : false;
 	}
+
+//	public ImageAverager getImageAverager() {
+//		return this.master;
+//	}
 
 }
