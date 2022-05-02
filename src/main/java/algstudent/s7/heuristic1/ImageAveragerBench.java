@@ -150,8 +150,8 @@ public class ImageAveragerBench {
 
 	private void measureBackDef() {
 		System.out.print("TESTING BRANCH AND BOUND:\n");
-		ImageAvg node = new ImageAvg();
-		ImageAveragerBAB_1 b = new ImageAveragerBAB_1(node);
+		ImageNode2 node = new ImageNode2(img_avger);
+		ImageBAB_2 b = new ImageBAB_2(node);
 		b.branchAndBound(b.getRootNode());
 		b.printSolutionTrace();
 		//img_avger = ((ImageAvg)b.getBestNode()).getImageAverager();

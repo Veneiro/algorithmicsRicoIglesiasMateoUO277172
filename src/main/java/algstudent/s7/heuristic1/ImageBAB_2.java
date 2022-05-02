@@ -2,42 +2,61 @@ package algstudent.s7.heuristic1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import algstudent.s7.util.bab.BranchAndBound;
 import algstudent.s7.util.bab.Node;
 
-public class ImageAveragerBAB_1 extends BranchAndBound {
+public class ImageBAB_2 extends BranchAndBound {
 
-	public ImageAveragerBAB_1(ImageAvg node) {
+	public ImageBAB_2(ImageNode2 node) {
 		rootNode = node;
 	}
 }
 
-class ImageAvg extends Node {
+class ImageNode2 extends Node {
 
-	private ImageAvg master;
 	private int actual;
 	private int asignaciones[];
+	private ImageAverager avg;
 
 	/**
-	 * Constructor for ImageAvg class
+	 * Constructor for ImageAvg2 class
 	 */
-	public ImageAvg() {
+	public ImageNode2(ImageAverager avg) {
 		this.actual = -1;
+		this.avg = avg;
 	}
 
 	/**
-	 * Constructor for ImageAvg class
+	 * Constructor for ImageAvg2 class
 	 * @param padre
 	 * @param cjto
 	 */
-	public ImageAvg(ImageAvg padre, int cjto) {
-		this.master = padre;
+	public ImageNode2(ImageNode2 padre, int cjto) {
 		this.actual = padre.actual + 1;
 		this.asignaciones = Arrays.copyOf(padre.asignaciones,
 				padre.asignaciones.length);
 		this.asignaciones[actual] = cjto;
 		calculateHeuristicValue();
+	}
+
+	/**
+	 * To generate a random array of positions
+	 * 
+	 * @param n Length of the array
+	 * @return
+	 */
+	public int[] randomIndexes(int n) {
+		List<Integer> list = new ArrayList<>();
+		for (int i = 0; i < n; i++)
+			list.add(i);
+		Collections.shuffle(list);
+		int[] array = new int[n];
+		for (int i = 0; i < n; i++)
+			array[i] = list.get(i);
+		return array;
 	}
 
 	/**
@@ -49,10 +68,10 @@ class ImageAvg extends Node {
 	@Override
 	public ArrayList<Node> expand() {
 		ArrayList<Node> result = new ArrayList<Node>();
-		ImageAvg iab;
+		ImageNode2 iab;
 		
 		for (int i = 0; i < 3; i++) {
-			iab = new ImageAvg(this, i);
+			iab = new ImageNode2(this, i);
 			result.add(iab);
 		}
 		return result;
@@ -60,11 +79,7 @@ class ImageAvg extends Node {
 
 	@Override
 	public boolean isSolution() {
-		return (heuristicValue == 0) ? true : false;
+		return (actual == avg.getNumberOfImages()) ? true : false;
 	}
-
-//	public ImageAverager getImageAverager() {
-//		return this.master;
-//	}
 
 }

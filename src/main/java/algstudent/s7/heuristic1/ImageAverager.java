@@ -108,6 +108,10 @@ public class ImageAverager {
 			array[i] = list.get(i);
 		return array;
 	}
+	
+	public int getNumberOfImages() {
+		return this.dataset.length;
+	}
 
 	/**
 	 * Store resulting images for testing
