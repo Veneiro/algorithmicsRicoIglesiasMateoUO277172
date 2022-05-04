@@ -142,7 +142,7 @@ public class ImageAveragerBench {
 
 	private void measureGreedy() {
 		System.out.print("TESTING GREEDY:\n");
-		img_avger.splitSubsetsGreedy(1000);
+		//img_avger.splitSubsetsGreedy(1000);
 		System.out.printf("  -ZNCC: %f\n", img_avger.zncc());
 		System.out.printf("  -Counter: %d\n", img_avger.getCounter());
 		img_avger.saveResults(OUT_DIR_G);
@@ -151,9 +151,9 @@ public class ImageAveragerBench {
 	private void measureBackDef() {
 		System.out.print("TESTING BRANCH AND BOUND:\n");
 		ImageNode2 node = new ImageNode2(img_avger);
-		ImageBAB_2 b = new ImageBAB_2(node);
-		b.branchAndBound(b.getRootNode());
-		b.printSolutionTrace();
+//		ImageBAB_2 b = new ImageBAB_2(node);
+//		b.branchAndBound(b.getRootNode());
+//		b.printSolutionTrace();
 		//img_avger = ((ImageAvg)b.getBestNode()).getImageAverager();
 		System.out.printf("  -ZNCC: %f\n", img_avger.zncc());
 		System.out.printf("  -Counter: %d\n", img_avger.getCounter());
@@ -162,7 +162,7 @@ public class ImageAveragerBench {
 
 	private void measureBackNB() {
 		System.out.print("TESTING BACKTRACKING BALANCING:\n");
-		img_avger.splitSubsetsBacktracking(1);
+//		img_avger.splitSubsetsBacktracking(1);
 		System.out.printf("  -ZNCC: %f\n", img_avger.zncc());
 		System.out.printf("  -Counter: %d\n", img_avger.getCounter());
 		img_avger.saveResults(OUT_DIR_BP);
@@ -233,7 +233,7 @@ public class ImageAveragerBench {
 		t = 0;
 		for (int repetition = 1; repetition <= 10; repetition++) {
 			t1 = System.currentTimeMillis();
-			img.splitSubsetsBacktracking(2);
+//			img.splitSubsetsBacktracking(2);
 			t2 = System.currentTimeMillis();
 			t += t2 - t1;
 		}
@@ -246,7 +246,7 @@ public class ImageAveragerBench {
 			t = 0;
 			for (int repetition = 1; repetition <= 10; repetition++) {
 				t1 = System.currentTimeMillis();
-				img.splitSubsetsGreedy(n);
+//				img.splitSubsetsGreedy(n);
 				t2 = System.currentTimeMillis();
 				t += t2 - t1;
 			}
@@ -262,7 +262,7 @@ public class ImageAveragerBench {
 		t = 0;
 		for (int repetition = 1; repetition <= 10; repetition++) {
 			t1 = System.currentTimeMillis();
-			img.splitSubsetsBacktracking();
+//			img.splitSubsetsBacktracking();
 			t2 = System.currentTimeMillis();
 			t += t2 - t1;
 		}

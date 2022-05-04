@@ -144,132 +144,18 @@ public class ImageAverager {
 	public double zncc() {
 		return this.half1_img.zncc(this.half2_img);
 	}
-
-	/**
-	 * Greedy algorithm: random instances for each half, the best one is the
-	 * final solution
-	 * 
-	 * @n_tries number of random tries
-	 */
-	public void splitSubsetsGreedy(int n_tries) {
-		for (int i = 0; i < n_tries; i++) {
-			this.half1_img = new Image(this.width, this.height);
-			this.half2_img = new Image(this.width, this.height);
-			// TODO
-			for (int j = 0; j < dataset.length; j++) {
-				Random r = new Random();
-				switch (r.nextInt(3)) {
-				case 0:
-					// Don't use it
-					counter++;
-					break;
-				case 1:
-					// Put in group 1
-					counter++;
-					half1_img.addSignal(dataset[j]);
-					break;
-				case 2:
-					// Put in group 2
-					counter++;
-					half2_img.addSignal(dataset[j]);
-					break;
-				}
+	
+	public void generateHalfImages(int sol[]) {
+		half1_img = new Image(width, height);
+		half2_img = new Image(width, height);
+		for (int i = 0; i < sol.length; i++) {
+			int grupo = sol[i];
+			if (grupo == 1) {
+				half1_img.addSignal(dataset[i]);
 			}
-			double aux = zncc();
-			if (aux > max_zncc) {
-				this.max_zncc = aux;
-				this.avg_img = new Image(this.width, this.height);
-				avg_img.addSignal(half1_img);
-				avg_img.addSignal(half2_img);
+			if (grupo == 2) {
+				half2_img.addSignal(dataset[i]);
 			}
-		}
-	}
-
-	/**
-	 * Backtracking algorithm
-	 * 
-	 * @max_unbalancing: (pruning condition) determines the maximum difference
-	 *                   between the number of images on each half set
-	 */
-	public void splitSubsetsBacktracking(int max_unbalancing) {
-		// TODO
-		counter = 0;
-		this.half1_img = new Image(this.width, this.height);
-		this.half2_img = new Image(this.width, this.height);
-		backtrackingPruning(0, max_unbalancing);
-	}
-
-	private void backtrackingPruning(int level, int max_unbalancing) {
-		if (level == dataset.length - 1) {
-			double aux = zncc();
-			if (aux > max_zncc) {
-				this.max_zncc = aux;
-				this.avg_img = new Image(this.width, this.height);
-				avg_img.addSignal(half1_img);
-				avg_img.addSignal(half2_img);
-			}
-		} else {
-			// Don't use it
-			counter++;
-			backtracking(level + 1);
-
-			// Put in group 1 if there is no unbalancing
-			if (Math.abs(counterHalf2 - counterHalf1) < max_unbalancing) {
-				counter++;
-				counterHalf1++;
-				half1_img.addSignal(dataset[level]);
-				backtracking(level + 1);
-				half1_img.removeSignal(dataset[level]);
-			}
-
-			// Put in group 2 if there is no unbalancing
-			if (Math.abs(counterHalf2 - counterHalf1) < max_unbalancing) {
-				counter++;
-				counterHalf2++;
-				half2_img.addSignal(dataset[level]);
-				backtracking(level + 1);
-				half2_img.removeSignal(dataset[level]);
-			} 
-		}
-	}
-
-	/**
-	 * Backtracking algorithm without balancing. Using a larger than the number
-	 * of images in the dataset ensures no prunning
-	 */
-	public void splitSubsetsBacktracking() {
-		// TODO
-		counter = 0;
-		this.half1_img = new Image(this.width, this.height);
-		this.half2_img = new Image(this.width, this.height);
-		backtracking(0);
-	}
-
-	private void backtracking(int level) {
-		if (level == dataset.length - 1) {
-			double aux = zncc();
-			if (aux > max_zncc) {
-				this.max_zncc = aux;
-				this.avg_img = new Image(this.width, this.height);
-				avg_img.addSignal(half1_img);
-				avg_img.addSignal(half2_img);
-			}
-		} else {
-			// Don't use it
-			counter++;
-			backtracking(level + 1);
-
-			// Put in group 1
-			counter++;
-			half1_img.addSignal(dataset[level]);
-			backtracking(level + 1);
-			half1_img.removeSignal(dataset[level]);
-
-			// Put in group 2
-			counter++;
-			half2_img.addSignal(dataset[level]);
-			backtracking(level + 1);
-			half2_img.removeSignal(dataset[level]);
 		}
 	}
 }

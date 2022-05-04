@@ -2,16 +2,18 @@ package algstudent.s7.heuristic1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import algstudent.s7.util.bab.BranchAndBound;
 import algstudent.s7.util.bab.Node;
 
 public class ImageBAB_2 extends BranchAndBound {
 
-	public ImageBAB_2(ImageNode2 node) {
-		rootNode = node;
+	public ImageBAB_2(ImageNode2 root) {
+		this.rootNode = root;
+	}
+	
+	public void branchAndBound() {
+		super.branchAndBound(rootNode);
 	}
 }
 
@@ -27,6 +29,7 @@ class ImageNode2 extends Node {
 	public ImageNode2(ImageAverager avg) {
 		this.actual = -1;
 		this.avg = avg;
+		this.asignaciones = new int[avg.getNumberOfImages()];
 	}
 
 	/**
@@ -35,6 +38,9 @@ class ImageNode2 extends Node {
 	 * @param cjto
 	 */
 	public ImageNode2(ImageNode2 padre, int cjto) {
+		this.parentID = padre.ID;
+		this.depth = padre.depth + 1;
+		this.avg = padre.avg;
 		this.actual = padre.actual + 1;
 		this.asignaciones = Arrays.copyOf(padre.asignaciones,
 				padre.asignaciones.length);
@@ -43,27 +49,17 @@ class ImageNode2 extends Node {
 	}
 
 	/**
-	 * To generate a random array of positions
-	 * 
-	 * @param n Length of the array
-	 * @return
-	 */
-	public int[] randomIndexes(int n) {
-		List<Integer> list = new ArrayList<>();
-		for (int i = 0; i < n; i++)
-			list.add(i);
-		Collections.shuffle(list);
-		int[] array = new int[n];
-		for (int i = 0; i < n; i++)
-			array[i] = list.get(i);
-		return array;
-	}
-
-	/**
 	 * Heuristic to do same as backtracking without balancing
 	 */
 	@Override
-	public void calculateHeuristicValue() {}
+	public void calculateHeuristicValue() {
+		if(isSolution()) {
+			avg.generateHalfImages(asignaciones);
+			heuristicValue = (int) (-avg.zncc() * (1000000));
+		} else {
+			heuristicValue = -1000000;
+		}
+	}
 
 	@Override
 	public ArrayList<Node> expand() {
@@ -79,7 +75,16 @@ class ImageNode2 extends Node {
 
 	@Override
 	public boolean isSolution() {
-		return (actual == avg.getNumberOfImages()) ? true : false;
+		return (actual == avg.getNumberOfImages()-1) ? true : false;
+	}
+	
+	@Override
+	public String toString() {
+		String a = "";
+		for (int asignacion: asignaciones) {
+			a += " " + asignacion;
+		}
+		return "Actual: " + actual + " - Asignaciones: " + a + " - Heuristico: " + getHeuristicValue();
 	}
 
 }
