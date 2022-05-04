@@ -22,6 +22,7 @@ class ImageNode1 extends Node {
 	private int actual;
 	private int asignaciones[];
 	private ImageAverager avg;
+	private int counter = 0;
 
 	/**
 	 * Constructor for ImageAvg2 class
@@ -37,7 +38,7 @@ class ImageNode1 extends Node {
 	 * @param padre
 	 * @param cjto
 	 */
-	public ImageNode1(ImageNode1 padre, int cjto) {
+	public ImageNode1(ImageNode1 padre, int cjto, int counter) {
 		this.padre = padre;
 		this.parentID = padre.ID;
 		this.depth = padre.depth + 1;
@@ -46,12 +47,21 @@ class ImageNode1 extends Node {
 		this.asignaciones = Arrays.copyOf(padre.asignaciones,
 				padre.asignaciones.length);
 		this.asignaciones[actual] = cjto;
+		this.counter = counter;
 		calculateHeuristicValue();
 	}
 	
 	@Override
 	public int initialValuePruneLimit() {
 		return 1000000;
+	}
+	
+	public double getZNCC() {
+		return this.avg.zncc();
+	}
+	
+	public int getCounter() {
+		return this.counter;
 	}
 
 	/**
@@ -60,16 +70,16 @@ class ImageNode1 extends Node {
 	@Override
 	public void calculateHeuristicValue() {
 		if(isSolution()) {
-			avg.generateHalfImages(asignaciones);
+			avg.generateHalfImages(asignaciones, counter);
 			heuristicValue = (int) (-avg.zncc() * (1000000));
 		} else {
 			if (padre == null) {
 				heuristicValue = -1000000;
 			}
 			else {
-				avg.generateHalfImages(padre.asignaciones);
+				avg.generateHalfImages(padre.asignaciones, counter);
 				double znccPadre = -avg.zncc();
-				avg.generateHalfImages(asignaciones);
+				avg.generateHalfImages(asignaciones, counter);
 				double znccHijo = -avg.zncc();
 				if (znccPadre < znccHijo) {
 					heuristicValue = 1000000;
@@ -87,7 +97,7 @@ class ImageNode1 extends Node {
 		ImageNode1 iab;
 		
 		for (int i = 0; i < 3; i++) {
-			iab = new ImageNode1(this, i);
+			iab = new ImageNode1(this, i, counter+=1);
 			result.add(iab);
 		}
 		return result;

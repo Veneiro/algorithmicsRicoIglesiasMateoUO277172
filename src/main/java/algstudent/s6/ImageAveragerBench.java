@@ -183,7 +183,7 @@ public class ImageAveragerBench {
 					S_NOISE);
 			long t = measureTimesBacktrackingYB(img_avger, it);
 			System.out.println("n=" + n + "\t|\tTIME= " + t + "\t " + "|ZNCC= "
-					+ img_avger.zncc());
+					+ img_avger.zncc() + "\t|\tCounter= " + img_avger.getCounter());
 		}
 	}
 

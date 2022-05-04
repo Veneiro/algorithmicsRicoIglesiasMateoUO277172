@@ -22,6 +22,7 @@ class ImageNode2 extends Node {
 	private int actual;
 	private int asignaciones[];
 	private ImageAverager avg;
+	private int counter;
 
 	/**
 	 * Constructor for ImageAvg2 class
@@ -37,7 +38,7 @@ class ImageNode2 extends Node {
 	 * @param padre
 	 * @param cjto
 	 */
-	public ImageNode2(ImageNode2 padre, int cjto) {
+	public ImageNode2(ImageNode2 padre, int cjto, int counter) {
 		this.parentID = padre.ID;
 		this.depth = padre.depth + 1;
 		this.avg = padre.avg;
@@ -45,7 +46,16 @@ class ImageNode2 extends Node {
 		this.asignaciones = Arrays.copyOf(padre.asignaciones,
 				padre.asignaciones.length);
 		this.asignaciones[actual] = cjto;
+		this.counter = counter;
 		calculateHeuristicValue();
+	}
+	
+	public double getZNCC() {
+		return this.avg.zncc();
+	}
+	
+	public int getCounter() {
+		return this.counter;
 	}
 
 	/**
@@ -54,7 +64,7 @@ class ImageNode2 extends Node {
 	@Override
 	public void calculateHeuristicValue() {
 		if(isSolution()) {
-			avg.generateHalfImages(asignaciones);
+			avg.generateHalfImages(asignaciones, counter);
 			heuristicValue = (int) (-avg.zncc() * (1000000));
 		} else {
 			heuristicValue = -1000000;
@@ -67,7 +77,7 @@ class ImageNode2 extends Node {
 		ImageNode2 iab;
 		
 		for (int i = 0; i < 3; i++) {
-			iab = new ImageNode2(this, i);
+			iab = new ImageNode2(this, i, counter+=1);
 			result.add(iab);
 		}
 		return result;

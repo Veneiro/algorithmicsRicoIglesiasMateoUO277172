@@ -145,7 +145,8 @@ public class ImageAverager {
 		return this.half1_img.zncc(this.half2_img);
 	}
 	
-	public void generateHalfImages(int sol[]) {
+	public void generateHalfImages(int sol[], int counter) {
+		this.counter = counter;
 		half1_img = new Image(width, height);
 		half2_img = new Image(width, height);
 		for (int i = 0; i < sol.length; i++) {
